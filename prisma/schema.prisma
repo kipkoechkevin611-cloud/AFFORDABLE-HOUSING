@@ -1,0 +1,186 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  name        String
+  email       String   @unique
+  phone       String   @unique
+  nationalId  String   @unique
+  kraPin      String?
+  password    String
+  role        UserRole @default(USER)
+  isVerified  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  applications    Application[]
+  siteVisits      SiteVisit[]
+  savedProperties SavedProperty[]
+  notifications   Notification[]
+
+  @@index([email])
+  @@index([phone])
+}
+
+model County {
+  id         String     @id @default(cuid())
+  name       String     @unique
+  code       String     @unique
+  createdAt  DateTime   @default(now())
+  properties Property[]
+}
+
+model Property {
+  id               String         @id @default(cuid())
+  name             String
+  slug             String         @unique
+  description      String
+  countyId         String
+  county           County         @relation(fields: [countyId], references: [id])
+  town             String
+  address          String
+  houseType        HouseType
+  bedrooms         Int
+  startingPrice    Float
+  images           String[]
+  amenities        String[]
+  totalUnits       Int
+  availableUnits   Int
+  status           PropertyStatus @default(AVAILABLE)
+  nearbyFacilities String[]
+  coordinates      String?
+  isFeatured       Boolean        @default(false)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  paymentPlans    PaymentPlan[]
+  applications    Application[]
+  siteVisits      SiteVisit[]
+  savedBy         SavedProperty[]
+
+  @@index([status])
+  @@index([countyId])
+  @@index([isFeatured])
+}
+
+model PaymentPlan {
+  id            String   @id @default(cuid())
+  propertyId    String
+  property      Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  name          String
+  duration      Int
+  monthlyAmount Float
+  deposit       Float
+  description   String?
+  createdAt     DateTime @default(now())
+}
+
+model Application {
+  id             String            @id @default(cuid())
+  userId         String
+  user           User              @relation(fields: [userId], references: [id])
+  propertyId     String
+  property       Property          @relation(fields: [propertyId], references: [id])
+  unitType       String
+  employment     String
+  employer       String?
+  monthlyIncome  Float
+  additionalInfo String?
+  status         ApplicationStatus @default(PENDING)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
+
+model SiteVisit {
+  id         String      @id @default(cuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  propertyId String
+  property   Property    @relation(fields: [propertyId], references: [id])
+  date       String
+  time       String
+  notes      String?
+  status     VisitStatus @default(PENDING)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
+
+model SavedProperty {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, propertyId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum HouseType {
+  STUDIO
+  ONE_BEDROOM
+  TWO_BEDROOM
+  THREE_BEDROOM
+  MAISONETTE
+  BUNGALOW
+}
+
+enum PropertyStatus {
+  AVAILABLE
+  SELLING_FAST
+  SOLD_OUT
+  COMING_SOON
+}
+
+enum ApplicationStatus {
+  PENDING
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  WAITLISTED
+}
+
+enum VisitStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}

@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 215 28% 17%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 28% 17%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 28% 17%;
+    --primary: 221 83% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 142 76% 24%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 221 83% 40%;
+    --radius: 0.625rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .hero-housing-bg {
+    background: linear-gradient(135deg, #1e3a5f 0%, #1e40af 60%, #166534 100%);
+    position: relative;
+  }
+
+  .glass-white {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .glass-navy {
+    background: rgba(30, 58, 95, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .text-gradient-blue {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-green {
+    background: linear-gradient(135deg, #166534 0%, #22c55e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #d97706 0%, #fbbf24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .property-card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .property-card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px rgba(30, 58, 95, 0.15);
+  }
+
+  .btn-primary-glow {
+    box-shadow: 0 4px 20px rgba(30, 64, 175, 0.35);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+  }
+
+  .btn-primary-glow:hover {
+    box-shadow: 0 6px 28px rgba(30, 64, 175, 0.5);
+    transform: translateY(-1px);
+  }
+
+  .section-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgba(30,64,175,0.06) 1px, transparent 0);
+    background-size: 40px 40px;
+  }
+
+  .stripe-kenya {
+    background: linear-gradient(90deg, #006838 0%, #006838 33%, #fff 33%, #fff 66%, #bb0000 66%, #bb0000 100%);
+    height: 4px;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .status-available { @apply bg-green-100 text-green-800 border border-green-200; }
+  .status-selling-fast { @apply bg-amber-100 text-amber-800 border border-amber-200; }
+  .status-sold-out { @apply bg-red-100 text-red-800 border border-red-200; }
+  .status-coming-soon { @apply bg-blue-100 text-blue-800 border border-blue-200; }
+}
+
+html { scroll-behavior: smooth; }
+
+::selection { background: rgba(30, 64, 175, 0.2); }
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
