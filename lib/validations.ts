@@ -51,6 +51,16 @@ export const siteVisitSchema = z.object({
   notes: z.string().max(500).optional(),
 });
 
+export const bookingSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  phone: z.string().min(10, "Phone must be at least 10 digits"),
+  email: z.string().email("Invalid email address").optional(),
+  service: z.string().min(1, "Service is required"),
+  date: z.string().min(1, "Date is required"),
+  time: z.string().min(1, "Time is required"),
+  notes: z.string().max(500).optional(),
+});
+
 export const adminLoginSchema = z.object({
   username: z.string().min(1, "Username is required"),
   password: z.string().min(1, "Password is required"),
@@ -75,5 +85,6 @@ export type RegisterData = z.infer<typeof registerSchema>;
 export type LoginData = z.infer<typeof loginSchema>;
 export type ApplicationData = z.infer<typeof applicationSchema>;
 export type SiteVisitData = z.infer<typeof siteVisitSchema>;
+export type BookingData = z.infer<typeof bookingSchema>;
 export type AdminLoginData = z.infer<typeof adminLoginSchema>;
 export type PropertyData = z.infer<typeof propertySchema>;
