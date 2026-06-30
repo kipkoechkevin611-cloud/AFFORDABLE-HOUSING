@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, use } from "react";
+import { useState, use, useCallback } from "react";
 import Link from "next/link";
 import { Building2, CheckCircle, ArrowLeft, ArrowRight, MessageCircle, Briefcase, User, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,10 +25,10 @@ export default function ApplyPage({ params }: { params: Promise<{ slug: string }
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const update = (field: string, value: string) => {
+  const update = useCallback((field: string, value: string) => {
     setForm((p) => ({ ...p, [field]: value }));
     setErrors((p) => { const n = { ...p }; delete n[field]; return n; });
-  };
+  }, []);
 
   const validate = () => {
     const e: Record<string, string> = {};
