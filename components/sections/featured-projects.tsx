@@ -113,12 +113,6 @@ export function FeaturedProjectsSection() {
                     {STATUS_LABELS[project.status]}
                   </Badge>
                 </div>
-                <div className="absolute bottom-3 left-3">
-                  <div className="glass-white rounded-lg px-3 py-1.5">
-                    <p className="text-white font-black text-sm">{formatCurrency(project.price)}</p>
-                    <p className="text-white/70 text-[10px]">Starting from</p>
-                  </div>
-                </div>
               </div>
 
               <div className="p-4">
@@ -135,7 +129,7 @@ export function FeaturedProjectsSection() {
                 </div>
                 <Link href={`/properties/${project.slug}`}>
                   <Button variant="default" size="sm" className="w-full gap-2 text-xs">
-                    Apply Now
+                    View Details
                     <ArrowRight className="h-3.5 w-3.5" />
                   </Button>
                 </Link>
