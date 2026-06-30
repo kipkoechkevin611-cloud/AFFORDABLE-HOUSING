@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       data: {
         name: result.data.name.trim(),
         phone: result.data.phone.trim(),
-        email: result.data.email.trim().toLowerCase(),
+        email: result.data.email?.trim().toLowerCase() || null,
         service: result.data.service,
         date: result.data.date,
         time: result.data.time,

@@ -151,3 +151,41 @@ export const EMPLOYMENT_TYPES = [
   "Student",
   "Other",
 ];
+
+export const SERVICES = [
+  "Property Viewing",
+  "Consultation",
+  "Application Assistance",
+  "Site Visit",
+  "General Inquiry",
+];
+
+export function buildWhatsAppMessage(data: {
+  name: string;
+  phone: string;
+  email?: string;
+  service: string;
+  date: string;
+  time: string;
+  notes?: string;
+}): string {
+  const lines = [
+    `📅 *NEW BOOKING*`,
+    ``,
+    `👤 *Name:* ${data.name}`,
+    `📞 *Phone:* ${data.phone}`,
+    data.email ? `📧 *Email:* ${data.email}` : null,
+    `🏢 *Service:* ${data.service}`,
+    `📆 *Date:* ${data.date}`,
+    `⏰ *Time:* ${formatTime(data.time)}`,
+    data.notes ? `📝 *Notes:* ${data.notes}` : null,
+    ``,
+    `_Sent via Affordable Housing Portal Kenya_`,
+  ].filter(Boolean).join("\n");
+  return lines;
+}
+
+export function buildWhatsAppUrl(phone: string, message: string): string {
+  const encodedMessage = encodeURIComponent(message);
+  return `https://wa.me/${phone}?text=${encodedMessage}`;
+}

@@ -108,7 +108,7 @@ export function ServicesSection() {
 
         <div className="text-center mt-10">
           <Link href="/book">
-            <Button variant="gradient" size="lg" className="gap-2">
+            <Button variant="default" size="lg" className="gap-2">
               Book a Service <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>

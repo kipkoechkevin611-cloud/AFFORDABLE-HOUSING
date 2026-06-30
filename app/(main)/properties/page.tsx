@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Search, MapPin, Bed, ArrowRight, SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { HOUSE_TYPE_LABELS } from "@/lib/utils";
+import { HOUSE_TYPE_LABELS, PROPERTY_STATUS_CONFIG } from "@/lib/utils";
 import { BOMA_YANGU_PROJECTS } from "@/lib/properties-data";
 
 

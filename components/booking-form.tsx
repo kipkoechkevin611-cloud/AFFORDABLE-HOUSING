@@ -13,15 +13,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SERVICES, TIME_SLOTS, buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/utils";
-import { bookingSchema, type BookingFormData } from "@/lib/validations";
+import { bookingSchema, type BookingData } from "@/lib/validations";
 import { Loader2, Send, User, Phone, Mail, Briefcase, Calendar, Clock, FileText } from "lucide-react";
 import toast from "react-hot-toast";
 
 export function BookingForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState<Partial<Record<keyof BookingFormData, string>>>({});
-  const [formData, setFormData] = useState<BookingFormData>({
+  const [errors, setErrors] = useState<Partial<Record<keyof BookingData, string>>>({});
+  const [formData, setFormData] = useState<BookingData>({
     name: "",
     phone: "",
     email: "",
@@ -33,7 +33,7 @@ export function BookingForm() {
 
   const today = new Date().toISOString().split("T")[0];
 
-  const handleChange = (field: keyof BookingFormData, value: string) => {
+  const handleChange = (field: keyof BookingData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }));
@@ -47,9 +47,9 @@ export function BookingForm() {
 
     const result = bookingSchema.safeParse(formData);
     if (!result.success) {
-      const fieldErrors: Partial<Record<keyof BookingFormData, string>> = {};
+      const fieldErrors: Partial<Record<keyof BookingData, string>> = {};
       result.error.errors.forEach((err) => {
-        const field = err.path[0] as keyof BookingFormData;
+        const field = err.path[0] as keyof BookingData;
         fieldErrors[field] = err.message;
       });
       setErrors(fieldErrors);
@@ -72,7 +72,7 @@ export function BookingForm() {
       }
 
       const waMessage = buildWhatsAppMessage(formData);
-      const waUrl = buildWhatsAppUrl(waMessage);
+      const waUrl = buildWhatsAppUrl(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "254740272542", waMessage);
 
       toast.success("Booking submitted successfully!");
 
@@ -213,7 +213,7 @@ export function BookingForm() {
       <div className="pt-2">
         <Button
           type="submit"
-          variant="gradient"
+          variant="default"
           size="lg"
           className="w-full gap-2 text-base"
           disabled={isLoading}

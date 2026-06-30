@@ -141,6 +141,22 @@ model Notification {
   @@index([userId])
 }
 
+model Booking {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  service   String
+  date      String
+  time      String
+  notes     String?
+  status    BookingStatus @default(PENDING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+}
+
 model Admin {
   id        String   @id @default(cuid())
   username  String   @unique
@@ -179,6 +195,13 @@ enum ApplicationStatus {
 }
 
 enum VisitStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum BookingStatus {
   PENDING
   CONFIRMED
   COMPLETED
