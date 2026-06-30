@@ -113,17 +113,17 @@ export function FeaturedProjectsSection() {
                     {STATUS_LABELS[project.status]}
                   </Badge>
                 </div>
+                <div className="absolute bottom-3 left-3 right-3">
+                  <p className="text-white font-bold text-sm leading-tight line-clamp-2">{project.name}</p>
+                  <div className="flex items-center gap-1 text-white/80 text-xs mt-1">
+                    <MapPin className="h-3 w-3 flex-shrink-0" />
+                    <span>{project.location}</span>
+                  </div>
+                </div>
               </div>
 
               <div className="p-4">
-                <h3 className="font-heading font-bold text-gray-900 text-base mb-1 group-hover:text-[#1e40af] transition-colors line-clamp-1">
-                  {project.name}
-                </h3>
-                <div className="flex items-center gap-1 text-gray-500 text-xs mb-3">
-                  <MapPin className="h-3 w-3 text-[#1e40af]" />
-                  <span>{project.location}</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-gray-500 border-t border-gray-100 pt-3 mb-3">
+                <div className="flex items-center gap-2 text-xs text-gray-500 mb-4">
                   <Bed className="h-3.5 w-3.5 text-gray-400" />
                   <span>{project.type}</span>
                 </div>

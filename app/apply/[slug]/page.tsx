@@ -79,7 +79,7 @@ export default function ApplyPage({ params }: { params: Promise<{ slug: string }
           <div className="space-y-3">
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="block">
               <Button className="w-full gap-2 font-bold bg-green-500 hover:bg-green-600 text-white">
-                <MessageCircle className="h-4 w-4" /> Open WhatsApp
+                <MessageCircle className="h-4 w-4" /> View Online
               </Button>
             </a>
             <Link href="/properties" className="block">
